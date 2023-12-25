@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<body>
+<div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+<script type="text/babel">
+    function Btn({text,fontSize =12}){
+        console.log(text, "was render");
+        return(
+        <button
+            style={{
+            fontSize,
+            backgroundColor : "tomato",
+            color : "white",
+            padding:"10px 20px",
+            border : 0,
+            borderRadius:10
+        }}
+        >
+            {text}
+        </button>
+        )}
+    function ConfirmBtn(){
+        return (
+            <button>Confirm</button>
+        );
+    }
+    Btn.propTypes = {
+        text: PropTypes.string.isRequired,
+        fontSize: PropTypes.number,
+    }
+    function App(){
+        return(
+            <div>
+                <Btn text="Save Changes" fontSize={18}/>
+                <Btn text={"Continue"} />
+            </div>
+        );
+    }
+    const root = document.getElementById("root")
+    ReactDOM.render(<App />, root);
+</script>
+</html>
+<!--
+prop에 해당 타입이 잘못입력되는 react가 알려줄 수도 있음
+어떻게?
+prop type은 어떤 타입의 prop을 받는지 알려줌
+
+-->

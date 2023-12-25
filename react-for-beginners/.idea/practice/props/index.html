@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<body>
+<div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    function Btn({text,onClick}){
+        console.log(text, "was render");
+        return(
+        <button
+            onClick={onClick}
+            style={{
+            backgroundColor : "tomato",
+            color : "white",
+            padding:"10px 20px",
+            border : 0,
+            borderRadius:10
+        }}
+        >
+            {text}
+        </button>
+        )}
+    function ConfirmBtn(){
+        return (
+            <button>Confirm</button>
+        );
+    }
+    const MemorizedBtn = React.memo(Btn);
+    function App(){
+        const [value, setValue] = React.useState("Save Changes");
+        const changeValue = () => setValue("Revert Change");
+        return(
+            <div>
+                <MemorizedBtn text={value} onClick={changeValue}/>
+                <MemorizedBtn text="Continue"/>
+
+            </div>
+        );
+    }
+    const root = document.getElementById("root")
+    ReactDOM.render(<App />, root);
+</script>
+</html>
+<!--
+state(상태)가 바뀌면 App 전체가 리랜더링이 됨.
+하지만 Continue에 대해서 porp 변경되지 않으면 변경되지 않도록 설정할 수 있음.
+어떻게? React.memo로 해둘 수 있음?
+부모의 state가 변경되면 자식도 리랜더링 -> 앱이 느려지는 상황 생길 수 있음.
+위처럼 컴포넌트가 생성되는 것에 대해 props 변경되지 않으면 그대로, 변경되면 리랜더링되게 설정 가능
+이게 가능하다는 것만 우선 이해해두자!!
+-->
